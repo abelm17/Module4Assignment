@@ -1,25 +1,15 @@
 import cv2, numpy as np, matplotlib.pyplot as plt
 
-img= cv2.imread("giraffe.jpg", cv2.IMREAD_GRAYSCALE)
+img= cv2.imread("fox.jpg", cv2.IMREAD_GRAYSCALE)
 if img is None:
     print("Image not loaded properly")
 
 blur= cv2.GaussianBlur(img, (11,11), 0)
 
-ret, _ = cv2.threshold(
-    blur,
-    0,
-    255,
-    cv2.THRESH_BINARY + cv2.THRESH_OTSU
-)
+ret, _ = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU )
 adjusted_thresh = ret # Can add or subtract here to adjust the threshold as needed
 
-_, thresh = cv2.threshold(
-    blur,
-    adjusted_thresh,
-    255,
-    cv2.THRESH_BINARY
-)
+_, thresh = cv2.threshold(blur, adjusted_thresh, 255, cv2.THRESH_BINARY)
 
 contours, hierarchy = cv2.findContours(thresh, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
